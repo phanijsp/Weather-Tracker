@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.weathertracker.ui.component.AutoCompleteView
 import com.example.weathertracker.ui.component.ErrorCard
 import com.example.weathertracker.ui.component.NoSelectionMessageCard
 import com.example.weathertracker.ui.component.SearchBarWithHint
@@ -35,6 +36,7 @@ fun WeatherScreen() {
     val weatherViewModel: WeatherViewModel = koinViewModel()
     val weatherState by weatherViewModel.weatherState.collectAsState()
     var showNoSelectionMessage by remember { mutableStateOf(false) }
+    val showAutoComplete by weatherViewModel.showAutCompleteView.collectAsState()
 
     Scaffold {
         Column(
@@ -45,6 +47,9 @@ fun WeatherScreen() {
             )
         ) {
             SearchBarWithHint(weatherViewModel)
+            if(showAutoComplete){
+                AutoCompleteView(weatherViewModel)
+            }
             Spacer(modifier = Modifier.height(24.dp))
 
             when (weatherState) {

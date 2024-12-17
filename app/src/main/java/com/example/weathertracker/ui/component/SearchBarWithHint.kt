@@ -33,7 +33,11 @@ fun SearchBarWithHint(weatherViewModel: WeatherViewModel) {
 
     OutlinedTextField(
         value = query,
-        onValueChange = { query = it },
+
+        onValueChange = {
+            query = it
+            weatherViewModel.getAutoCompleteResults(query)
+                        },
         placeholder = {
             Text(
                 text = "Search Location", color = colorResource(R.color.search_bar_text),
